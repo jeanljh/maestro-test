@@ -314,45 +314,45 @@ const flowBlocks = flows
         }
         const errHtml = s.error ? `<div class="err">${esc(s.error)}</div>` : '';
         const recoveredTag = s.recovered ? '<span class="tag-recovered">recovered by retry</span>' : '';
-        return \`
-        <div class="step \${cls}">
-          <span class="icon">\${statusIcon(s.status)}</span>
-          <span class="label">\${esc(s.label)}</span>
-          \${recoveredTag}
-          <span class="dur">\${fmtDuration(s.duration)}</span>
-        </div>\${errHtml}\`;
+        return `
+        <div class="step ${cls}">
+          <span class="icon">${statusIcon(s.status)}</span>
+          <span class="label">${esc(s.label)}</span>
+          ${recoveredTag}
+          <span class="dur">${fmtDuration(s.duration)}</span>
+        </div>${errHtml}`;
       })
       .join('');
 
     const shotsHtml = shotsForFlow.length
-      ? \`<div class="shots">\${shotsForFlow
+      ? `<div class="shots">${shotsForFlow
           .map(
             (s) =>
-              \`<a href="\${esc(s.src)}" target="_blank" rel="noopener"><img src="\${esc(s.src)}" alt="Screenshot"></a><div class="shot-caption">\${esc(s.caption)}</div>\`
+              `<a href="${esc(s.src)}" target="_blank" rel="noopener"><img src="${esc(s.src)}" alt="Screenshot"></a><div class="shot-caption">${esc(s.caption)}</div>`
           )
-          .join('')}</div>\`
+          .join('')}</div>`
       : '';
 
-    return \`
-    <div class="flow \${stateClass}">
-      <div class="flow-header" onclick="toggleFlow(\${fi})">
-        <span class="chevron" id="chev-\${fi}">\${hasFail ? '\\u25BC' : '\\u25B6'}</span>
-        <span class="flow-name">\${esc(flow.name)}</span>
-        <span class="flow-state \${stateClass}">\${state}</span>
-        <span class="flow-dur">\${fmtDuration(flow.duration)}</span>
+    return `
+    <div class="flow ${stateClass}">
+      <div class="flow-header" onclick="toggleFlow(${fi})">
+        <span class="chevron" id="chev-${fi}">${hasFail ? 'u25BC' : 'u25B6'}</span>
+        <span class="flow-name">${esc(flow.name)}</span>
+        <span class="flow-state ${stateClass}">${state}</span>
+        <span class="flow-dur">${fmtDuration(flow.duration)}</span>
       </div>
-      <div class="flow-body\${shotsForFlow.length ? ' with-shots' : ''}" id="body-\${fi}" style="display:\${hasFail ? 'grid' : 'none'};">
+      <div class="flow-body${shotsForFlow.length ? ' with-shots' : ''}" id="body-${fi}" style="display:${hasFail ? 'grid' : 'none'};">
         <div class="flow-steps">
-          \${flow.error ? \`<div class="flow-error">\${esc(flow.error)}</div>\` : ''}
-          \${stepsHtml}
+          ${flow.error ? `<div class="flow-error">${esc(flow.error)}</div>` : ''}
+          ${stepsHtml}
         </div>
-        \${shotsHtml}
+        ${shotsHtml}
       </div>
-    </div>\`;
+    </div>`;
   })
   .join('');
 
-const html = \`<!DOCTYPE html>
+const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -401,23 +401,23 @@ const html = \`<!DOCTYPE html>
 <body>
 <header>
   <h1>Test Report</h1>
-  <div class="summary">\${totalFlows} flow(s) — <b class="ok">\${okFlows} ok</b> — <b class="fail">\${failedFlows.length} fail(s)</b> — \${fmtDuration(totalDuration)}</div>
-  \${
+  <div class="summary">${totalFlows} flow(s) — <b class="ok">${okFlows} ok</b> — <b class="fail">${failedFlows.length} fail(s)</b> — ${fmtDuration(totalDuration)}</div>
+  ${
     envInfo
-      ? \`<div class="env">\${[
-          envInfo.maestroVersion ? \`Maestro \${esc(envInfo.maestroVersion)}\` : null,
+      ? `<div class="env">${[
+          envInfo.maestroVersion ? `Maestro ${esc(envInfo.maestroVersion)}` : null,
           envInfo.os ? esc(envInfo.os) : null,
           envInfo.device ? esc(envInfo.device) : null,
           envInfo.platform ? esc(envInfo.platform) : null,
           envInfo.resolution ? esc(envInfo.resolution) : null,
         ]
           .filter(Boolean)
-          .join(' · ')}</div>\`
+          .join(' · ')}</div>`
       : ''
   }
 </header>
 <div class="layout">
-  \${flowBlocks}
+  ${flowBlocks}
 </div>
 <script>
   function toggleFlow(i) {
@@ -425,12 +425,12 @@ const html = \`<!DOCTYPE html>
     const chev = document.getElementById('chev-' + i);
     const open = body.style.display !== 'none';
     body.style.display = open ? 'none' : (body.classList.contains('with-shots') ? 'grid' : 'block');
-    chev.textContent = open ? '\\u25B6' : '\\u25BC';
+    chev.textContent = open ? 'u25B6' : 'u25BC';
   }
 </script>
 </body>
-</html>\`;
+</html>`;
 
 fs.mkdirSync(path.dirname(outPath) || '.', { recursive: true });
 fs.writeFileSync(outPath, html, 'utf-8');
-console.log(\`Report: \${outPath}\`);
+console.log(`Report: ${outPath}`);
