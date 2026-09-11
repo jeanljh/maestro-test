@@ -1,0 +1,31 @@
+appId: com.techshop.android
+---
+- runFlow: elements\loadElements.yaml
+- launchApp:
+    clearState: true
+# Start with invalid credentials
+- extendedWaitUntil:
+    visible:
+      id: ${output.login.emailInput}
+    timeout: 30000
+- tapOn:
+    id: ${output.login.emailInput}
+- inputText: "xyz@email.com"
+- tapOn:
+    id: ${output.login.passwordInput}
+- inputText: 123
+- tapOn:
+    id: ${output.login.submitBtn}
+- assertVisible:
+    id: ${output.login.errorMsg}
+    text: ${output.login.errorInvalidText} 
+# Continue with successful login subflow
+- runFlow:
+    when:
+      visible:
+        id: ${output.login.errorMsg}
+    commands:
+      - assertNotVisible:
+          id: ${output.catalog.list}
+      - runFlow: subflows\login.yaml
+- stopApp

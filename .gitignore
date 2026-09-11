@@ -1,0 +1,11 @@
+# AI agents
+*.agents
+
+# GitHub Scripts
+.github/scripts/
+
+# Maestro Reports
+report.html
+report.xml
+report.json
+

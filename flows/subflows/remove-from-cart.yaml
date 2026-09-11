@@ -1,0 +1,18 @@
+appId: com.techshop.android
+---
+- runFlow: ..\elements\loadElements.yaml
+- evalScript: ${output.counter = 1}
+# Remove items from cart one by one
+- repeat:
+    while:
+      visible:
+        id: ${output.cart.removeBtnPrefix + output.counter}
+    commands:
+      - tapOn:
+          id: ${output.cart.removeBtnPrefix + output.counter}
+      - assertNotVisible:
+          id: ${output.cart.itemPrefix + output.counter}
+      - evalScript: ${output.counter++}
+- assertVisible:
+    id: ${output.cart.emptyCart}
+    text: ${output.cart.emptyCartText}

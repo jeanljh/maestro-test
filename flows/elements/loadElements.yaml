@@ -1,0 +1,5 @@
+appId: com.techshop.android
+---
+- runScript: login.js
+- runScript: catalog.js
+- runScript: cart.js

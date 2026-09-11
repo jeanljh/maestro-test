@@ -1,0 +1,36 @@
+appId: com.techshop.android
+---
+- runFlow: elements\loadElements.yaml
+- launchApp:
+    clearState: true
+# Login with invalid email and password
+- extendedWaitUntil:
+    visible:
+      id: ${output.login.emailInput}
+    timeout: 30000
+- tapOn:
+    id: ${output.login.emailInput}
+- inputText: "xyz"
+- tapOn:
+    id: ${output.login.passwordInput}
+- inputText: 123
+- tapOn:
+    id: ${output.login.submitBtn}
+- assertVisible:
+    id: ${output.login.errorMsg}
+    text: ${output.login.errorEmptyText} 
+- assertNotVisible:
+    id: ${output.catalog.list}
+# Login with valid email and invalid password
+- tapOn:
+    id: ${output.login.emailInput}
+- eraseText
+- inputText: "abc@email.com"
+- tapOn:
+    id: ${output.login.submitBtn}
+- assertVisible:
+    id: ${output.login.errorMsg}
+    text: ${output.login.errorInvalidText}
+- assertNotVisible:
+    id: ${output.catalog.list}
+- stopApp

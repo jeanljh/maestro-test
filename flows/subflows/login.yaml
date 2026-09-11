@@ -1,0 +1,26 @@
+appId: com.techshop.android
+env:
+    EMAIL: ${EMAIL || "demo@techshop.com"}
+    PASSWORD: ${PASSWORD || "password123"}
+---
+- runFlow: ..\elements\loadElements.yaml
+- launchApp:
+    clearState: true
+# Enter credentials
+- extendedWaitUntil:
+    visible:
+      id: ${output.login.emailInput}
+    timeout: 30000
+- tapOn:
+    id: ${output.login.emailInput}
+- eraseText
+- inputText: "${EMAIL}"
+- tapOn:
+    id: ${output.login.passwordInput}
+- eraseText
+- inputText: "${PASSWORD}"
+- tapOn:
+    id: ${output.login.submitBtn}
+# Verify successful login
+- assertVisible:
+    id: ${output.catalog.list}

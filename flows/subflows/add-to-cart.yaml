@@ -1,0 +1,41 @@
+appId: com.techshop.android
+---
+- runFlow: ..\elements\loadElements.yaml
+- evalScript: ${output.names = []; output.prices = []; output.counter = 1;}
+# Add items to cart and record expected names and prices
+- repeat:
+    while:
+      notVisible:
+        id: ${output.catalog.badgePrefix + output.counter}
+    commands:
+      - copyTextFrom:
+          id: ${output.catalog.productNamePrefix + output.counter}
+      - evalScript: ${output.names.push(maestro.copiedText)}
+      - copyTextFrom:
+          id: ${output.catalog.productPrefix + output.counter}
+      - evalScript: ${output.prices.push(maestro.copiedText)}
+      - tapOn:
+          id: ${output.catalog.addBtnPrefix + output.counter}
+      - evalScript: ${output.counter++}
+- tapOn:
+    id: ${output.cart.tabBtn}
+- evalScript: ${output.counter = 0}
+- evalScript: ${output.totalPrice = output.prices.reduce((sum, price) => sum + parseFloat(price.replace(/[\$,]/g, '')), 0)}
+# Verify items in cart match recorded items
+- repeat:
+    while:
+      true: ${output.counter < output.names.length}
+    commands:
+      - evalScript: ${output.expectedName = output.names[output.counter]; output.expectedPrice = output.prices[output.counter];}
+      - copyTextFrom:
+          id: ${output.cart.itemPrefix + (output.counter + 1)}
+      - assertTrue:
+          condition: "maestro.copiedText.includes('${output.expectedName}')"
+      - assertVisible:
+          id: ${output.cart.lineTotalPrefix + (output.counter + 1)}
+          text: ${output.expectedPrice}
+      - evalScript: ${output.counter++}
+- copyTextFrom:
+    id: ${output.cart.orderTotal}
+- assertTrue:
+    condition: "maestro.copiedText.includes('${output.totalPrice}')"

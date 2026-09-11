@@ -1,0 +1,21 @@
+appId: com.techshop.android
+---
+- runFlow: elements\loadElements.yaml
+- runFlow: subflows\login.yaml
+# Iterate through available products and verify add button is enabled
+- evalScript: ${output.counter = 1}
+- repeat:
+    commands:
+      - scrollUntilVisible:
+          element: 
+            id: ${output.catalog.productPrefix + output.counter}
+          timeout: 3000
+    while:
+      notVisible:
+        id: ${output.catalog.badgePrefix + output.counter}
+    commands:
+      - assertVisible:
+          id: ${output.catalog.addBtnPrefix + output.counter}
+          enabled: true
+      - evalScript: ${output.counter++}
+- stopApp
