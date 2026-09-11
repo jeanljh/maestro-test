@@ -1,4 +1,4 @@
-# 📱 Maestro Demo: Android Virtual Device Testing
+# 📱 Maestro Test: Android Virtual Device Testing
 
 [![Maestro](https://img.shields.io/badge/Tested_with-Maestro-blue.svg)](https://maestro.mobile.dev/)
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)]()
@@ -14,7 +14,7 @@ This repository provides practical examples of End-to-End (E2E) mobile testing. 
 Here is a high-level overview of the project's structure:
 
 ```text
-maestro-demo/
+maestro-test/
 ├── .github/                 # GitHub Actions workflows for CI/CD
 ├── flows/                   # Maestro test scenarios
 │   ├── elements/            # Reusable UI element definitions
