@@ -22,10 +22,19 @@ appId: com.techshop.android
 - assertNotVisible:
     id: ${output.catalog.list}
 # Login with valid email and invalid password
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: ${output.login.emailInput}
+    timeout: 30000
 - tapOn:
     id: ${output.login.emailInput}
-- eraseText
 - inputText: "abc@email.com"
+- tapOn:
+    id: ${output.login.passwordInput}
+- inputText: 123
 - tapOn:
     id: ${output.login.submitBtn}
 - assertVisible:
