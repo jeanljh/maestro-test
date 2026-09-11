@@ -1,6 +1,6 @@
 appId: com.techshop.android
 ---
-- runFlow: elements\loadElements.yaml
+- runFlow: elements/loadElements.yaml
 # Execute successful login flow
-- runFlow: subflows\login.yaml
+- runFlow: subflows/login.yaml
 - stopApp

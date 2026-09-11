@@ -3,7 +3,7 @@ env:
     EMAIL: ${EMAIL || "demo@techshop.com"}
     PASSWORD: ${PASSWORD || "password123"}
 ---
-- runFlow: ..\elements\loadElements.yaml
+- runFlow: ../elements/loadElements.yaml
 - launchApp:
     clearState: true
 # Enter credentials

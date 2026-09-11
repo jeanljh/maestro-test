@@ -1,7 +1,7 @@
 appId: com.techshop.android
 ---
-- runFlow: elements\loadElements.yaml
-- runFlow: subflows\login.yaml
+- runFlow: elements/loadElements.yaml
+- runFlow: subflows/login.yaml
 # Execute add to cart process
-- runFlow: subflows\add-to-cart.yaml
+- runFlow: subflows/add-to-cart.yaml
 - stopApp

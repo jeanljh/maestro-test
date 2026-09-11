@@ -1,6 +1,6 @@
 appId: com.techshop.android
 ---
-- runFlow: elements\loadElements.yaml
+- runFlow: elements/loadElements.yaml
 - launchApp:
     clearState: true
 # Login with invalid email and password

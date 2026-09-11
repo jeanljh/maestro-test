@@ -1,8 +1,8 @@
 appId: com.techshop.android
 ---
-- runFlow: elements\loadElements.yaml
-- runFlow: subflows\login.yaml
-- runFlow: subflows\add-to-cart.yaml
+- runFlow: elements/loadElements.yaml
+- runFlow: subflows/login.yaml
+- runFlow: subflows/add-to-cart.yaml
 # Execute remove from cart process
-- runFlow: subflows\remove-from-cart.yaml
+- runFlow: subflows/remove-from-cart.yaml
 - stopApp

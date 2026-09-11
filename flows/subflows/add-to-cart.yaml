@@ -1,6 +1,6 @@
 appId: com.techshop.android
 ---
-- runFlow: ..\elements\loadElements.yaml
+- runFlow: ../elements/loadElements.yaml
 - evalScript: ${output.names = []; output.prices = []; output.counter = 1;}
 # Add items to cart and record expected names and prices
 - repeat:
