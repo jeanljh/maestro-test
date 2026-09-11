@@ -64,14 +64,7 @@ jobs:
             adb logcat -v time > reports/debug/logcat.txt &
             
             echo "==> Running Maestro suite..."
-            maestro test \
-              -e EMAIL="${{ secrets.TEST_EMAIL }}" \
-              -e PASSWORD="${{ secrets.TEST_PASSWORD }}" \
-              --format junit \
-              --output reports/result.xml \
-              --debug-output reports/debug \
-              --test-output-dir reports/debug \
-              flows/
+            maestro test -e EMAIL="${{ secrets.TEST_EMAIL }}" -e PASSWORD="${{ secrets.TEST_PASSWORD }}" --format junit --output reports/result.xml --debug-output reports/debug --test-output-dir reports/debug flows/
 
       - name: Generate consolidated report
         if: always()
